@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  scrapy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: sreality
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: MySecretPassword
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  http_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - scrapy
+      - postgres
+    environment:
+      - SCRAPY_HOST=scrapy
+      - SCRAPY_PORT=6800
+    ports:
+      - "5000:5000"

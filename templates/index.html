@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scraped Items</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .additional-images {
+            cursor: pointer;
+            color: blue;
+        }
+
+        .additional-images-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scraped Items</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.title }}</h2>
+                <img src="{{ item.images[0] }}" alt="{{ item.title }}" class="main-image">
+                <p class="additional-images">
+                    <span class="image-info">{{ item.images | length }} additional images available. Click to show/hide.</span>
+                </p>
+                <div class="additional-images-container">
+                    {% for image in item.images[1:] %}
+                        <img src="{{ image }}" alt="{{ item.title }}" class="additional-image">
+                    {% endfor %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        $(document).ready(function () {
+            $(".additional-images").click(function () {
+                var container = $(this).next(".additional-images-container");
+                container.slideToggle();
+            });
+        });
+    </script>
+</body>
+</html>

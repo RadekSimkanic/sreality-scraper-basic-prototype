@@ -1,0 +1,4 @@
+Scrapy>=2.5.1
+psycopg2-binary>=2.9.1
+Flask>=2.0.1
+scrapy-selenium
