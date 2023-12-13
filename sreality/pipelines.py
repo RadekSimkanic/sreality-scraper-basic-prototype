@@ -60,13 +60,11 @@ class PostgresPipeline(object):
     def process_item(self, item, spider):
         """Process each extracted item and insert it into the PostgreSQL database."""
         insert_query = """
-            INSERT INTO flats (title, locality, price, images)
-            VALUES (%s, %s, %s, %s);
+            INSERT INTO flats (title, images)
+            VALUES (%s, %s);
         """
         values = (
             item['title'],
-            ";".join(item['locality']),
-            str(item['price']),
             ";".join(item['images']),
         )
 
