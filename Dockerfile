@@ -17,5 +17,6 @@ COPY . /app
 # Requirements
 RUN pip install -r requirements.txt
 
-# Execute access
+# Prepare run.sh
 RUN chmod +x run.sh
+RUN sed -i 's/\r$//' /app/run.sh && chmod +x /app/run.sh
