@@ -13,5 +13,6 @@ Clone the repository:
 
    ```bash
    git clone https://github.com/RadekSimkanic/sreality-scraper-basic-prototype.git
+   docker-compose up
 
 
