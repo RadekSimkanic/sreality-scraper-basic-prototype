@@ -10,6 +10,8 @@ services:
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
+    volumes:
+      - .:/app
 
   postgres:
     image: postgres:latest
@@ -37,3 +39,4 @@ services:
       - SCRAPY_PORT=6800
     ports:
       - "5000:5000"
+    entrypoint: /bin/bash -c "bash /app/run.sh"
